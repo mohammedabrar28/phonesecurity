@@ -6,16 +6,31 @@ function runScan() {
 }
 
 function checkIP() {
-  fetch("https://ipapi.co/json/")
+  fetch("https://api.ipify.org?format=json")
     .then(res => res.json())
     .then(data => {
       ip.textContent = data.ip;
-      location.textContent = data.city + ", " + data.country_name;
-      isp.textContent = data.org;
     })
     .catch(() => {
-      ip.textContent = "BLOCKED";
+      ip.textContent = "UNAVAILABLE";
     });
+
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const lat = position.coords.latitude.toFixed(4);
+        const lon = position.coords.longitude.toFixed(4);
+        location.textContent = `Lat ${lat}, Lon ${lon}`;
+      },
+      () => {
+        location.textContent = "PERMISSION DENIED";
+      }
+    );
+  } else {
+    location.textContent = "NOT SUPPORTED";
+  }
+
+  isp.textContent = "Mobile Network";
 }
 
 function checkHTTPS() {
