@@ -4,8 +4,8 @@ function runScan() {
   checkDNS();
   checkMalware();
 }
-
 function checkIP() {
+  // Get public IP (GitHub Pages friendly)
   fetch("https://api.ipify.org?format=json")
     .then(res => res.json())
     .then(data => {
@@ -15,14 +15,15 @@ function checkIP() {
       ip.textContent = "UNAVAILABLE";
     });
 
+  // Get REAL phone location (GPS)
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(
-      position => {
-        const lat = position.coords.latitude.toFixed(4);
-        const lon = position.coords.longitude.toFixed(4);
-        location.textContent = `Lat ${lat}, Lon ${lon}`;
+      pos => {
+        const lat = pos.coords.latitude.toFixed(4);
+        const lon = pos.coords.longitude.toFixed(4);
+        location.textContent = `${lat}, ${lon}`;
       },
-      () => {
+      err => {
         location.textContent = "PERMISSION DENIED";
       }
     );
@@ -30,8 +31,10 @@ function checkIP() {
     location.textContent = "NOT SUPPORTED";
   }
 
+  // ISP cannot be reliably fetched in browser
   isp.textContent = "Mobile Network";
-}
+  }
+
 
 function checkHTTPS() {
   if (location.protocol === "https:") {
