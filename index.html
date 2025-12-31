@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Phone Security Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="terminal">
+  <h1>☠ PHONE SECURITY ANALYZER</h1>
+
+  <button onclick="runScan()">▶ RUN FULL SCAN</button>
+
+  <div class="panel">
+    <p>IP Address: <span id="ip">--</span></p>
+    <p>Location: <span id="location">--</span></p>
+    <p>ISP: <span id="isp">--</span></p>
+  </div>
+
+  <div class="panel">
+    <p>HTTPS Secure: <span id="https">--</span></p>
+    <p>DNS Leak Risk: <span id="dns">--</span></p>
+    <p>Malware Domain Risk: <span id="malware">--</span></p>
+  </div>
+
+  <div class="panel">
+    <p>Threat Level</p>
+    <div id="threat" class="threat low">LOW</div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
